@@ -18,14 +18,26 @@ def null_process():
     print(set(microwave['product_category']))
     print(set(microwave['marketplace']))
     #'product_category', 'marketplace' 每一列的值都相同, 直接删掉
+    hair_dryer['review_date'] = pd.to_datetime (hair_dryer['review_date'], format='%m/%d/%Y')
+    hair_dryer['year'] = hair_dryer['review_date'].dt.year
+    hair_dryer['month'] = hair_dryer['review_date'].dt.month
 
+    pacifier['review_date'] = pd.to_datetime (pacifier['review_date'], format='%m/%d/%Y')
+    pacifier['year'] = pacifier['review_date'].dt.year
+    pacifier['month'] = pacifier['review_date'].dt.month
+
+    microwave['review_date'] = pd.to_datetime (microwave['review_date'], format='%m/%d/%Y')
+    microwave['year'] = microwave['review_date'].dt.year
+    microwave['month'] = microwave['review_date'].dt.month
     del hair_dryer['product_category']
     del hair_dryer['marketplace']
     del pacifier['product_category']
     del pacifier['marketplace']
     del microwave['product_category']
     del microwave['marketplace']
-
+    del hair_dryer['product_title']
+    del pacifier['product_title']
+    del microwave['product_title']
     tmp1 = pacifier[pacifier['product_id'] == 'b0042i2bwg']
     print (tmp1)
     tmp2 = pacifier[pacifier['product_id'] == 'b00db5f114']
@@ -87,6 +99,7 @@ def null_process():
     # print(hair_dryer[hair_dryer.isnull().values==True])
     # print(microwave[microwave.isnull().values==True])
     # print(pacifier[pacifier.isnull().values==True])
+
 # null_process()
 hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
 microwave=pd.read_csv('../Data/microwave.csv',encoding='utf-8')
@@ -118,6 +131,25 @@ def fig_star_rating_count():
     plt.show()
 # fig_star_rating_count()
 
+def fig_time():
+    # print(hair_dryer.groupby('product_id').count()['customer_id'].describe())
+    # hair_dryer1=hair_dryer[hair_dryer['review_date']>pd.to_datetime('1/1/2013',format='%m/%d/%Y')]
+    tmp=hair_dryer.groupby(['year']).count()['customer_id']
+    # x=[str(i[0])+'/'+str(i[1]) for i in tmp.index.values]
+    plt.plot(tmp.index.values,tmp.values)
+    plt.show()
+    print(tmp)
+
+    tmp = microwave.groupby ('year').count ()['customer_id']
+    plt.plot (tmp.index.values, tmp.values)
+    plt.show ()
+    print (tmp)
+
+    tmp = pacifier.groupby ('year').count ()['customer_id']
+    plt.plot (tmp.index.values, tmp.values)
+    plt.show ()
+    print (tmp)
+fig_time()
 # test1=hair_dryer[hair_dryer['product_id']=='B003V264WW']
 # print()
 
