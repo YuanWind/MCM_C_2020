@@ -75,7 +75,6 @@ def scaler(X):
     x=pd.DataFrame(x_train,columns=X.columns.values)
     return x
 
-
 def cal_weight(x):
     '''熵值法计算变量的权重'''
     # 标准化
@@ -127,7 +126,6 @@ def get_eval(prod,data):
     return wei
 # wei=get_eval('hair_dryer',hair_dryer) #{'star_rating': 0.8529774897515476, 'review_body': 0.1470225102484523}
 # print(wei)
-
 def gen_score(prod,data):
     x=data['star_rating'].values
     y=data['review_body'].values

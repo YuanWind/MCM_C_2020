@@ -1,11 +1,16 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from tqdm import tqdm
+
+from my_util import pre_process
+
 
 def null_process():
     hair_dryer=pd.read_csv('../Data/hair_dryer.tsv',sep='\t',encoding='utf-8')
     microwave=pd.read_csv('../Data/microwave.tsv',sep='\t',encoding='utf-8')
     pacifier=pd.read_csv('../Data/pacifier.tsv',sep='\t',encoding='utf-8')
     # print(hair_dryer.head())
+
     for column in hair_dryer.columns:
         if len(set(hair_dryer[column]))==1:
             print('hair_dryer:',column)
@@ -91,6 +96,40 @@ def null_process():
     print(microwave['product_id'].count())#1615
     print(pacifier['product_id'].count())#18937
     # 只有四行数据有缺失值, 不影响整体, 故直接删除之后重新保存
+    reviewer_body = []
+    for i in tqdm (hair_dryer['review_body'].values):
+        sent = ''
+        for j in pre_process (i):
+            sent = sent + ' ' + j
+        reviewer_body.append (sent)
+    hair_dryer['review_body'] = reviewer_body
+
+    reviewer_body = []
+    for i in tqdm (microwave['review_body'].values):
+        sent = ''
+        for j in pre_process (i):
+            sent = sent + ' ' + j
+        reviewer_body.append (sent)
+    microwave['review_body'] = reviewer_body
+
+    reviewer_body = []
+    for i in tqdm (pacifier['review_body'].values):
+        sent = ''
+        try:
+            for j in pre_process (i):
+                sent = sent + ' ' + j
+        except:
+            print (i)
+            sent = i
+        reviewer_body.append (sent)
+    pacifier['review_body'] = reviewer_body
+
+    hair_dryer = hair_dryer.dropna ()
+    microwave = microwave.dropna ()
+    pacifier = pacifier.dropna ()
+    print (hair_dryer['product_id'].count ())  # 11468
+    print (microwave['product_id'].count ())  # 1615
+    print (pacifier['product_id'].count ())  # 18937
     hair_dryer.to_csv('../Data/hair_dryer.csv',encoding='utf-8',index=None)
     microwave.to_csv('../Data/microwave.csv',encoding='utf-8',index=None)
     pacifier.to_csv('../Data/pacifier.csv',encoding='utf-8',index=None)
@@ -100,7 +139,7 @@ def null_process():
     # print(microwave[microwave.isnull().values==True])
     # print(pacifier[pacifier.isnull().values==True])
 
-# null_process()
+null_process()
 hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
 microwave=pd.read_csv('../Data/microwave.csv',encoding='utf-8')
 pacifier=pd.read_csv('../Data/pacifier.csv',encoding='utf-8')

@@ -10,13 +10,8 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import lightgbm as lgb
 from tqdm import tqdm
-
-import emotion_eng
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
-# out_put = emotion_eng.getMoodValue("great")
 cat_cols = ['customer_id', 'review_id', 'product_id', 'vine', 'verified_purchase']
-
 def pre_process(data):
     del data['review_headline']
     dtime = pd.to_datetime (data['review_date'])
