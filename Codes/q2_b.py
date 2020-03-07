@@ -130,16 +130,14 @@ def gen_score(prod,data):
     x=data['star_rating'].values
     y=data['review_body'].values
     wei = get_eval (prod, data)
-    print(prod,wei)
     score=np.array(x)*wei['star_rating']+np.array(y)*wei['review_body']
     data['score']=score
     return data
-data1=gen_score('hair_dryer',hair_dryer)
-data2=gen_score('microwave',microwave)
-data3=gen_score('pacifier',pacifier)
-print(data1.head())
-print(data2.head())
-print(data3.head())
+data=gen_score('hair_dryer',hair_dryer)[['review_date','year','month','score']]
+# print(data.describe())
+print(data[data['score']>4].count())
+print(data[data['score']<2].count())
+
 
 
 
