@@ -30,9 +30,9 @@ class AllList():  # 存储所有列表信息的对象
 def getAllList():  # 提取所有规则列表（后期要改为多线程提取）
 
     allList = AllList()
-
+    path=''
     # 情感分析(英文)
-    file = open("emotion_dict/eng/pos.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/pos.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -41,7 +41,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.positive_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/neg.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/neg.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -50,7 +50,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.negative_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/level1.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/level1.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -59,7 +59,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level1_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/level2.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/level2.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -68,7 +68,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level2_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/level3.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/level3.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -77,7 +77,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level3_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/level4.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/level4.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -86,7 +86,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level4_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/level5.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/level5.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -95,7 +95,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level5_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/level6.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/level6.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -104,7 +104,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level6_words_eng.append(checkTr)
 
-    file = open("emotion_dict/eng/fouding.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/eng/fouding.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -123,7 +123,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.positive_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/neg.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/neg.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -132,7 +132,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.negative_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/level1.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/level1.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -141,7 +141,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level1_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/level2.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/level2.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -150,7 +150,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level2_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/level3.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/level3.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -159,7 +159,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level3_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/level4.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/level4.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -168,7 +168,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level4_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/level5.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/level5.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -177,7 +177,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level5_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/level6.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/level6.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:
@@ -186,7 +186,7 @@ def getAllList():  # 提取所有规则列表（后期要改为多线程提取�
         checkTr = str(line).replace('\n', '')
         allList.level6_words_cn.append(checkTr)
 
-    file = open("emotion_dict/cn/fouding.txt", encoding='UTF-8')
+    file = open(path+"emotion_dict/cn/fouding.txt", encoding='UTF-8')
     while 1:
         line = file.readline()
         if not line:

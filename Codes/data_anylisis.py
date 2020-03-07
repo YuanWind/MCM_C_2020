@@ -104,6 +104,7 @@ def null_process():
 hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
 microwave=pd.read_csv('../Data/microwave.csv',encoding='utf-8')
 pacifier=pd.read_csv('../Data/pacifier.csv',encoding='utf-8')
+print(hair_dryer.columns)
 def fig_star_rating_count():
     tmp1=hair_dryer.groupby(by='star_rating').count()['customer_id']
     plt.subplot(221)
@@ -149,7 +150,7 @@ def fig_time():
     plt.plot (tmp.index.values, tmp.values)
     plt.show ()
     print (tmp)
-fig_time()
+# fig_time()
 # test1=hair_dryer[hair_dryer['product_id']=='B003V264WW']
 # print()
 

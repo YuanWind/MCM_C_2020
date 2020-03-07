@@ -28,5 +28,5 @@ import emotion_cn
 #                     break
 #         elif lg =='0':
 #             break
-out_put = emotion_eng.getMoodValue("very good works great")
-print(out_put)
+out_put = emotion_eng.getMoodValue("great")
+print(out_put['all_value'])
