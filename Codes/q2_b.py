@@ -3,6 +3,8 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import numpy as np
 import pandas as pd
 import math
+import matplotlib.pyplot as plt
+
 from textblob import TextBlob
 # blob = TextBlob ("text")
 # print(blob.sentiment.polarity)
@@ -135,8 +137,31 @@ def gen_score(prod,data):
     return data
 data=gen_score('hair_dryer',hair_dryer)[['review_date','year','month','score']]
 # print(data.describe())
-print(data[data['score']>4].count())
-print(data[data['score']<2].count())
+good=data[(data['score']>4) & (data['year']>2011)].groupby(['year','month']).count()['score']
+bad=data[(data['score']<1) & (data['year']>2011)].groupby(['year','month']).count()['score']
+all_of=data[(data['year']>2011)].groupby(['year','month']).count()['review_date']
+good=pd.DataFrame(good,index=good.index.values)
+bad=pd.DataFrame(bad,index=bad.index.values)
+all_of=pd.DataFrame(all_of,index=all_of.index.values)
+bad.rename(columns={'score':'score_bad'},inplace=True)
+x=[str(i[0])+'/'+str(i[1]) for i in good.index.values]
+good['time']=x
+x=[str(i[0])+'/'+str(i[1]) for i in bad.index.values]
+bad['time']=x
+x=[str(i[0])+'/'+str(i[1]) for i in all_of.index.values]
+all_of['time']=x
+all=pd.merge(good,bad,how='left')
+all=pd.merge(all,all_of,how='left')
+all.fillna(0)
+fig = plt.figure(num=1, figsize=(15, 8),dpi=80)
+plt.plot(all['time'].values,all['score'].values/all['review_date'].values)
+# plt.show()
+plt.plot(all['time'].values,all['score_bad'].values/all['review_date'].values)
+# plt.plot(all['time'].values,all['review_date'].values)
+plt.legend(['good','bad'],loc = 'best')
+
+plt.show()
+print()
 
 
 
