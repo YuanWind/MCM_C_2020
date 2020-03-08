@@ -72,8 +72,6 @@ def scaler(X):
     x_train= min_max_scaler.fit_transform (X)
     x=pd.DataFrame(x_train,columns=X.columns.values)
     return x
-
-
 def cal_weight(x):
     '''熵值法计算变量的权重'''
     # 标准化

@@ -1,4 +1,5 @@
 import collections
+import pickle
 
 import jieba.analyse
 from tqdm import tqdm
@@ -99,7 +100,13 @@ def try2():
     three_star_sen = gen_star_sent (3)
     four_star_sen = gen_star_sent (4)
     five_star_sen = gen_star_sent (5)
-
+    star_sent = {}
+    star_sent['one'] = one_star_sen
+    star_sent['two'] = two_star_sen
+    star_sent['three'] = three_star_sen
+    star_sent['four'] = four_star_sen
+    star_sent['five'] = five_star_sen
+    pickle.dump (star_sent, open ('star_sent_cloud.pkl', 'wb', encoding='utf-8'))
     w = wordcloud.WordCloud (max_words=50)
     w.generate (one_star_sen)
     w.to_file ('output1.png')
@@ -154,28 +161,36 @@ def try3():
     three_star_sen = gen_star_sent1 (3)
     four_star_sen = gen_star_sent1 (4)
     five_star_sen = gen_star_sent1 (5)
+    star_sent={}
+    star_sent['one']=one_star_sen
+    star_sent['two']=two_star_sen
+    star_sent['three']=three_star_sen
+    star_sent['four']=four_star_sen
+    star_sent['five']=five_star_sen
+    pickle.dump(star_sent,open('star_sent_count.pkl','wb',encoding='utf-8'))
+
     word_counts = collections.Counter (one_star_sen)  # 对分词做词频统计
-    word_counts_top10 = word_counts.most_common (50)  # 获取前10最高频的词
+    word_counts_top10 = word_counts.most_common (20)  # 获取前10最高频的词
     print (word_counts_top10)  # 输出检查
 
     word_counts = collections.Counter (one_star_sen)  # 对分词做词频统计
-    word_counts_top10 = word_counts.most_common (50)  # 获取前10最高频的词
+    word_counts_top10 = word_counts.most_common (20)  # 获取前10最高频的词
     print (word_counts_top10)  # 输出检查
 
     word_counts = collections.Counter (two_star_sen)  # 对分词做词频统计
-    word_counts_top10 = word_counts.most_common (50)  # 获取前10最高频的词
+    word_counts_top10 = word_counts.most_common (20)  # 获取前10最高频的词
     print (word_counts_top10)  # 输出检查
 
     word_counts = collections.Counter (three_star_sen)  # 对分词做词频统计
-    word_counts_top10 = word_counts.most_common (50)  # 获取前10最高频的词
+    word_counts_top10 = word_counts.most_common (20)  # 获取前10最高频的词
     print (word_counts_top10)  # 输出检查
 
     word_counts = collections.Counter (four_star_sen)  # 对分词做词频统计
-    word_counts_top10 = word_counts.most_common (50)  # 获取前10最高频的词
+    word_counts_top10 = word_counts.most_common (20)  # 获取前10最高频的词
     print (word_counts_top10)  # 输出检查
 
     word_counts = collections.Counter (five_star_sen)  # 对分词做词频统计
-    word_counts_top10 = word_counts.most_common (50)  # 获取前10最高频的词
+    word_counts_top10 = word_counts.most_common (20)  # 获取前10最高频的词
     print (word_counts_top10)  # 输出检查
 
 try3()

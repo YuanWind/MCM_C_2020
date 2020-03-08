@@ -16,6 +16,9 @@ def months(str1,str2):
 hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
 microwave=pd.read_csv('../Data/microwave.csv',encoding='utf-8')
 pacifier=pd.read_csv('../Data/pacifier.csv',encoding='utf-8')
+hair_dryer=hair_dryer.dropna()
+microwave=microwave.dropna()
+pacifier=pacifier.dropna()
 
 def review_s(data):
     review_score=[]
@@ -26,7 +29,10 @@ def review_s(data):
         H=data.loc[i,'helpful_votes']
         T=data.loc[i,'total_votes']
         X=np.log(1750)/np.log(C2)
-        Length=len(data.loc[i,'review_body'])
+        try:
+            Length=len(data.loc[i,'review_body'])
+        except:
+            print(data.loc[i,'review_body'])
         # Recency=-2*(1/(np.exp(months('2020-03-07',hair_dryer.loc[i,'review_date']))))
         # try:
         Recency= 2 * 1 / (1 + np.exp((months('2015-11-01',data.loc[i,'review_date'])) / (30)))

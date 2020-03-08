@@ -12,7 +12,7 @@ import lightgbm as lgb
 from tqdm import tqdm
 import numpy as np
 cat_cols = ['customer_id', 'review_id', 'product_id', 'vine', 'verified_purchase']
-def pre_process(data):
+def pre_process(prod,data):
     del data['review_headline']
     dtime = pd.to_datetime (data['review_date'])
     v = (dtime.values - np.datetime64 ('2000-01-01T08:00:00Z')) / np.timedelta64 (1, 'ms')
@@ -41,23 +41,37 @@ def pre_process(data):
         for i in tqdm(col):
             out_put = TextBlob (i)
             new_col.append(out_put.sentiment.polarity)
-
         return new_col
     data['review_body']=get_sentment(data['review_body'])
-    return data
-# hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
-# hair_dryer=pre_process(hair_dryer)
-# hair_dryer.to_csv('../Data/new_hair_dryer.csv')
-#
-# microwave=pd.read_csv('../Data/microwave.csv',encoding='utf-8')
-# microwave=pre_process(microwave)
-# microwave.to_csv('../Data/new_microwave.csv')
-#
-# pacifier=pd.read_csv('../Data/pacifier.csv',encoding='utf-8')
-# pacifier=pre_process(pacifier)
-# pacifier.to_csv('../Data/new_pacifier.csv')
 
-def get_X_y(data):
+    def anylisis(data):
+        not_pair = data[((data['star_rating'] == 1) & (data['review_body'] > 0.6)) | ((data['star_rating'] == 5) & (data['review_body'] < -0.6))]
+        return not_pair.index.values
+
+    abnormal_product = {}
+    abnormal_product[prod] = (list (anylisis (data)))  # 8
+    # abnormal_product['microwave'] = (list (anylisis (microwave)))  # 3
+    # abnormal_product['pacifier'] = (list (anylisis (pacifier)))  # 18
+    data = data[~data['product_id'].isin (abnormal_product[prod])]
+    return data
+hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
+hair_dryer=hair_dryer.dropna()
+hair_dryer=pre_process('hair_dryer',hair_dryer)
+hair_dryer.to_csv('../Data/new_hair_dryer.csv')
+
+microwave=pd.read_csv('../Data/microwave.csv',encoding='utf-8')
+microwave=microwave.dropna()
+microwave=pre_process('microwave',microwave)
+microwave.to_csv('../Data/new_microwave.csv')
+
+pacifier=pd.read_csv('../Data/pacifier.csv',encoding='utf-8')
+pacifier=pacifier.dropna()
+pacifier=pre_process('pacifier',pacifier)
+pacifier.to_csv('../Data/new_pacifier.csv')
+
+def get_X_y(prod,data):
+
+
     cols_x=['customer_id', 'review_id', 'product_id', 'helpful_votes', 'total_votes', 'vine', 'verified_purchase','review_body', 'review_date', 'year', 'month','rate']
     star=[]
     for i in data['star_rating']:
@@ -96,7 +110,7 @@ hair_dryer=gen_rate(hair_dryer)
 microwave=gen_rate(microwave)
 pacifier=gen_rate(pacifier)
 def model1():
-    X,y=get_X_y(hair_dryer)
+    X,y=get_X_y('hair_dryer',hair_dryer)
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=0,shuffle=True)
     print("Train data length:", len(X_train))
     print("Test data length:", len(X_test))
@@ -122,7 +136,7 @@ def model1():
     print ('auc值：', roc_auc_score (y_test, y_pred))
     print ('F1值：', 2 * (precision * recall) / (precision + recall))
 def model2():
-    X, y = get_X_y (microwave)
+    X, y = get_X_y ('microwave',microwave)
     X_train, X_test, y_train, y_test = train_test_split (X, y, test_size=0.2, random_state=0, shuffle=True)
     print ("Train data length:", len (X_train))
     print ("Test data length:", len (X_test))
@@ -152,7 +166,7 @@ def model2():
     print ('auc值：', roc_auc_score (y_test, y_pred))
     print ('F1值：', 2 * (precision * recall) / (precision + recall))
 def model3():
-    X, y = get_X_y (pacifier)
+    X, y = get_X_y ('pacifier',pacifier)
     X_train, X_test, y_train, y_test = train_test_split (X, y, test_size=0.2, random_state=0, shuffle=True)
     print ("Train data length:", len (X_train))
     print ("Test data length:", len (X_test))
