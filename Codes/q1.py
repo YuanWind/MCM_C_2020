@@ -46,13 +46,15 @@ def pre_process(prod,data):
 
     def anylisis(data):
         not_pair = data[((data['star_rating'] == 1) & (data['review_body'] > 0.6)) | ((data['star_rating'] == 5) & (data['review_body'] < -0.6))]
+        # print(not_pair)
         return not_pair.index.values
 
     abnormal_product = {}
     abnormal_product[prod] = (list (anylisis (data)))  # 8
+    print(abnormal_product)
     # abnormal_product['microwave'] = (list (anylisis (microwave)))  # 3
     # abnormal_product['pacifier'] = (list (anylisis (pacifier)))  # 18
-    data = data[~data['product_id'].isin (abnormal_product[prod])]
+    data = data[~data.index.isin (abnormal_product[prod])]
     return data
 hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
 hair_dryer=hair_dryer.dropna()
