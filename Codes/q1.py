@@ -113,6 +113,7 @@ microwave=gen_rate(microwave)
 pacifier=gen_rate(pacifier)
 def model1():
     X,y=get_X_y('hair_dryer',hair_dryer)
+    print(len(y))
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=0,shuffle=True)
     print("Train data length:", len(X_train))
     print("Test data length:", len(X_test))
@@ -139,6 +140,7 @@ def model1():
     print ('F1值：', 2 * (precision * recall) / (precision + recall))
 def model2():
     X, y = get_X_y ('microwave',microwave)
+    print (len (y))
     X_train, X_test, y_train, y_test = train_test_split (X, y, test_size=0.2, random_state=0, shuffle=True)
     print ("Train data length:", len (X_train))
     print ("Test data length:", len (X_test))
@@ -169,6 +171,7 @@ def model2():
     print ('F1值：', 2 * (precision * recall) / (precision + recall))
 def model3():
     X, y = get_X_y ('pacifier',pacifier)
+    print (len (y))
     X_train, X_test, y_train, y_test = train_test_split (X, y, test_size=0.2, random_state=0, shuffle=True)
     print ("Train data length:", len (X_train))
     print ("Test data length:", len (X_test))

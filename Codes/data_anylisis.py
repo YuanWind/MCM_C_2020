@@ -139,7 +139,7 @@ def null_process():
     # print(microwave[microwave.isnull().values==True])
     # print(pacifier[pacifier.isnull().values==True])
 
-null_process()
+# null_process()
 hair_dryer=pd.read_csv('../Data/hair_dryer.csv',encoding='utf-8')
 microwave=pd.read_csv('../Data/microwave.csv',encoding='utf-8')
 pacifier=pd.read_csv('../Data/pacifier.csv',encoding='utf-8')
@@ -174,22 +174,49 @@ def fig_star_rating_count():
 def fig_time():
     # print(hair_dryer.groupby('product_id').count()['customer_id'].describe())
     # hair_dryer1=hair_dryer[hair_dryer['review_date']>pd.to_datetime('1/1/2013',format='%m/%d/%Y')]
-    tmp=hair_dryer.groupby(['year']).count()['customer_id']
-    # x=[str(i[0])+'/'+str(i[1]) for i in tmp.index.values]
-    plt.plot(tmp.index.values,tmp.values)
-    plt.show()
-    print(tmp)
+    y1=hair_dryer.groupby(['year','month']).count()['customer_id']
+    y2 = microwave.groupby (['year','month']).count ()['customer_id']
+    y3 = pacifier.groupby (['year','month']).count ()['customer_id']
+    x=[]
+    for i in range(2002,2016):
+        for j in range(1,13):
+            x.append((i,j))
+    x.pop(-1)
+    x.pop(-1)
+    x.pop(-1)
+    x.pop(-1)
+    tmp=[]
+    for i in x:
+        if i in list(y1.index.values):
+            tmp.append(y1.loc[i])
+        else:
+            tmp.append(0)
+    y1=tmp
+    tmp = []
+    for i in x:
+        if i in list(y2.index.values):
+            tmp.append (y2[i])
+        else:
+            tmp.append (0)
+    y2=tmp
+    tmp = []
+    for i in x:
+        if i in list(y3.index.values):
+            tmp.append (y3[i])
+        else:
+            tmp.append (0)
+    y3=tmp
 
-    tmp = microwave.groupby ('year').count ()['customer_id']
-    plt.plot (tmp.index.values, tmp.values)
+    x=[str(item[0])+'/'+str(item[1]) for item in x]
+    plt.figure(figsize=(20,10))
+    plt.plot(x,y1)
+    plt.plot(x,y2)
+    plt.plot(x,y3)
+    plt.xticks (size='small', rotation=90, fontsize=8)
+    plt.legend(['hair_dryer','microwave','pacifier'],loc = 'best')
     plt.show ()
     print (tmp)
-
-    tmp = pacifier.groupby ('year').count ()['customer_id']
-    plt.plot (tmp.index.values, tmp.values)
-    plt.show ()
-    print (tmp)
-# fig_time()
+fig_time()
 # test1=hair_dryer[hair_dryer['product_id']=='B003V264WW']
 # print()
 

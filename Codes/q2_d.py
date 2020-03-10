@@ -111,24 +111,24 @@ def try2():
     # pickle.dump (star_sent, open ('star_sent_cloud.pkl', 'wb'))
     star_sent=pickle.load(open('star_sent_cloud.pkl','rb'))
 
-    w = wordcloud.WordCloud (max_words=50)
+    w = wordcloud.WordCloud (max_words=50,background_color='white')
     w.generate (star_sent['one'])
     w.to_file ('output1.png')
 
 
-    w = wordcloud.WordCloud (max_words=50)
+    w = wordcloud.WordCloud (max_words=50,background_color='white')
     w.generate (star_sent['two'])
     w.to_file ('output2.png')
 
-    w = wordcloud.WordCloud (max_words=50)
+    w = wordcloud.WordCloud (max_words=50,background_color='white')
     w.generate (star_sent['three'])
     w.to_file ('output3.png')
 
-    w = wordcloud.WordCloud (max_words=50)
+    w = wordcloud.WordCloud (max_words=50,background_color='white')
     w.generate (star_sent['four'])
     w.to_file ('output4.png')
 
-    w = wordcloud.WordCloud (max_words=50)
+    w = wordcloud.WordCloud (max_words=50,background_color='white')
     w.generate (star_sent['five'])
     w.to_file ('output5.png')
 
@@ -237,12 +237,7 @@ def try3(num):
     sns.heatmap (data,linewidths = 0.05, vmax=5000, vmin=50, cmap=cmap)
     plt.show()
     plt.savefig('words_hot'+str(num)+'.png')
-    # x=x1+x2+x3+x4+x5
-    # y=y1+y2+y3+y4+y5
-    # fig,ax=plt.subplots()
-    # ax.scatter(x,y,c='r')
-    # plt.show()
 
 
-try3(10)
-# try2()
+# try3(10)
+try2()
